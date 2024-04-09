@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building...'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying...'
+            }
+        }
+    }
+
+    post {
+        success {
+            emailext body: "Job Name: \${JOB_NAME}\nBuild Number: \${BUILD_NUMBER}\nJob URL: \${BUILD_URL}",
+                     subject: "Jenkins Job Successful: \${JOB_NAME} #\${BUILD_NUMBER}",
+                     to: sindhukampli@gmail.com'
+        }
+        failure {
+            emailext body: "Job Name: \${JOB_NAME}\nBuild Number: \${BUILD_NUMBER}\nJob URL: \${BUILD_URL}",
+                     subject: "Jenkins Job Failed: \${JOB_NAME} #\${BUILD_NUMBER}",
+                     to: 'sindhukampli@gmail.com'
+        }
+    }
+}
