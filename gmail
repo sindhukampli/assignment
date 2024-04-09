@@ -19,16 +19,14 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            emailext body: "Job Name: \${JOB_NAME}\nBuild Number: \${BUILD_NUMBER}\nJob URL: \${BUILD_URL}",
-                     subject: "Jenkins Job Successful: \${JOB_NAME} #\${BUILD_NUMBER}",
-                     to: sindhukampli@gmail.com'
-        }
-        failure {
-            emailext body: "Job Name: \${JOB_NAME}\nBuild Number: \${BUILD_NUMBER}\nJob URL: \${BUILD_URL}",
-                     subject: "Jenkins Job Failed: \${JOB_NAME} #\${BUILD_NUMBER}",
-                     to: 'sindhukampli@gmail.com'
-        }
-    }
+   post {
+  		always {
+    			emailext (
+                		subject: "Build Notification: ${BUILD_NUMBER} Job name: ${JOB_NAME} Build number: ${BUILD_NUMBER} Build url: ${BUILD_URL}",
+               			body: "Build Stages completed",
+				to: 'sindhukampli@gmail.com',
+				from: 'jenkins@gmail.com'
+            		)
+  		}
+	}
 }
