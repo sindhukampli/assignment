@@ -24,7 +24,8 @@ pipeline {
     			emailext (
                 		subject: "Build Stage completed",
                			body: "Build Notification: ${BUILD_NUMBER} Job name: ${JOB_NAME} Build number: ${BUILD_NUMBER} Build url: ${BUILD_URL}",
-				to: 'sindhukampli@gmail.com'
+				to: 'sindhukampli@gmail.com',
+				from:'sindhukampli@gmail.com'
             		)
   		}
 	}
